@@ -1,0 +1,23 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(-180deg,#170202 0%,#0c0101 100%);
+  color: #c9b37e;
+}
+
+.title {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+.errorCode {
+  margin-bottom: 2rem;
+  font-size: 5rem;
+  font-weight: 700;
+}
+
+.link {
+  color: #c9b37e;
+}
