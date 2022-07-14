@@ -8,7 +8,8 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import PrivateRoute from '../../hocs/private-route';
 
 type AppProps = {
   filmPromo: {
@@ -24,7 +25,14 @@ function App({ filmPromo }: AppProps): JSX.Element {
       <Routes>
         <Route path={AppRoute.Main} element={<MainScreen filmPromo={filmPromo} />} />
         <Route path={AppRoute.SignIn} element={<SignInScreen />} />
-        <Route path={AppRoute.MyList} element={<MyListScreen />} />
+        <Route
+          path={AppRoute.MyList}
+          element={
+            <PrivateRoute autorisationStatus={AuthorizationStatus.NoAuth}>
+              <MyListScreen />
+            </PrivateRoute>
+          }
+        />
         <Route path={AppRoute.Film} element={<FilmScreen />} />
         <Route path={AppRoute.AddReview} element={<AddReviewScreen />} />
         <Route path={AppRoute.Player} element={<PlayerScreen />} />
