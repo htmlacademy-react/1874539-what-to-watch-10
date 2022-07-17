@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import FilmsList from '../../components/films-list/films-list';
 import Logo from '../../components/logo/logo';
 import PageFooter from '../../components/page-footer/page-footer';
@@ -14,7 +16,7 @@ function MyListScreen({ films }: MyListScreenProps): JSX.Element {
       <header className='page-header user-page__head'>
         <Logo />
         <h1 className='page-title user-page__title'>
-          My list <span className='user-page__film-count'>9</span>
+          My list <span className='user-page__film-count'>{films.length}</span>
         </h1>
         <ul className='user-block'>
           <li className='user-block__item'>
@@ -23,7 +25,9 @@ function MyListScreen({ films }: MyListScreenProps): JSX.Element {
             </div>
           </li>
           <li className='user-block__item'>
-            <a className='user-block__link'>Sign out</a>
+            <Link className='user-block__link' to='/login'>
+              Sign out
+            </Link>
           </li>
         </ul>
       </header>
