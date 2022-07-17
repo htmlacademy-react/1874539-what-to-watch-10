@@ -13,11 +13,18 @@ function FilmCard(props: FilmCardProps): JSX.Element {
     title,
     images: { posterUrl },
     makeFilmCardActive,
+    isActive,
   } = props;
 
   const handleOnMouseOver = () => {
     makeFilmCardActive(id);
   };
+
+  const handleOnActive = () => isActive;
+
+  if (isActive) {
+    handleOnActive();
+  }
 
   return (
     <article className='small-film-card catalog__films-card' onMouseOver={handleOnMouseOver}>
