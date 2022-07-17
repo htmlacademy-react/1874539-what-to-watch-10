@@ -1,6 +1,13 @@
-import Logo from '../../components/logo/logo';
+import { useParams } from 'react-router-dom';
 
-function AddReviewScreen(): JSX.Element {
+import Logo from '../../components/logo/logo';
+import { Film } from '../../types/film';
+
+type AddReviewScreenProps = {
+  films: Film[];
+};
+
+function AddReviewScreen({ films }: AddReviewScreenProps): JSX.Element {
   return (
     <section className='film-card film-card--full'>
       <div className='film-card__header'>

@@ -1,15 +1,14 @@
-import FilmCard from '../../components/film-card/film-card';
+import FilmsList from '../../components/films-list/films-list';
 import Logo from '../../components/logo/logo';
 import PageFooter from '../../components/page-footer/page-footer';
 
-function MyListScreen(): JSX.Element {
-  const filmCards: JSX.Element[] = Array(9)
-    .fill(null)
-    .map((_, index) => {
-      const key = `sorry, but i have not unique id =( ${index}`;
-      return <FilmCard key={key} />;
-    });
+import { Film } from '../../types/film';
 
+type MyListScreenProps = {
+  films: Film[];
+};
+
+function MyListScreen({ films }: MyListScreenProps): JSX.Element {
   return (
     <div className='user-page'>
       <header className='page-header user-page__head'>
@@ -30,7 +29,7 @@ function MyListScreen(): JSX.Element {
       </header>
       <section className='catalog'>
         <h2 className='catalog__title visually-hidden'>Catalog</h2>
-        <div className='catalog__films-list'>{filmCards}</div>
+        <FilmsList films={films} />
       </section>
       <PageFooter />
     </div>

@@ -1,6 +1,8 @@
-import FilmCard from '../../components/film-card/film-card';
+import FilmsList from '../../components/films-list/films-list';
 import Logo from '../../components/logo/logo';
 import PageFooter from '../../components/page-footer/page-footer';
+
+import { Film } from '../../types/film';
 
 type MainScreenProps = {
   filmPromo: {
@@ -8,16 +10,11 @@ type MainScreenProps = {
     genre: string;
     releaseDate: Date;
   };
+
+  films: Film[];
 };
 
-function MainScreen({ filmPromo }: MainScreenProps): JSX.Element {
-  const filmCards: JSX.Element[] = Array(20)
-    .fill(null)
-    .map((_, index) => {
-      const key = `sorry, but i have not unique id =( ${index}`;
-      return <FilmCard key={key} />;
-    });
-
+function MainScreen({ filmPromo, films }: MainScreenProps): JSX.Element {
   return (
     <>
       <section className='film-card'>
@@ -66,7 +63,7 @@ function MainScreen({ filmPromo }: MainScreenProps): JSX.Element {
                     <use xlinkHref='#add' />
                   </svg>
                   <span>My list</span>
-                  <span className='film-card__count'>9</span>
+                  <span className='film-card__count'>{films.length}</span>
                 </button>
               </div>
             </div>
@@ -128,7 +125,7 @@ function MainScreen({ filmPromo }: MainScreenProps): JSX.Element {
               </a>
             </li>
           </ul>
-          <div className='catalog__films-list'>{filmCards}</div>
+          <FilmsList films={films} />
           <div className='catalog__more'>
             <button className='catalog__button' type='button'>
               Show more
