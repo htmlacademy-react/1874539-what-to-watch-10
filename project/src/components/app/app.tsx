@@ -13,19 +13,14 @@ import PrivateRoute from '../../hocs/private-route';
 import { Film } from '../../types/film';
 
 type AppProps = {
-  filmPromo: {
-    title: string;
-    genre: string;
-    releaseDate: Date;
-  };
   films: Film[];
 };
 
-function App({ filmPromo, films }: AppProps): JSX.Element {
+function App({ films }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainScreen filmPromo={filmPromo} films={films} />} />
+        <Route path={AppRoute.Main} element={<MainScreen films={films} />} />
         <Route path={AppRoute.SignIn} element={<SignInScreen />} />
         <Route
           path={AppRoute.MyList}
