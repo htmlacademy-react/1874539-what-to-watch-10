@@ -30,12 +30,12 @@ function App({ filmPromo, films }: AppProps): JSX.Element {
         <Route
           path={AppRoute.MyList}
           element={
-            <PrivateRoute autorisationStatus={AuthorizationStatus.NoAuth}>
+            <PrivateRoute autorisationStatus={AuthorizationStatus.Auth}>
               <MyListScreen films={films} />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film} element={<FilmScreen />} />
+        <Route path={AppRoute.Film} element={<FilmScreen films={films} />} />
         <Route path={AppRoute.AddReview} element={<AddReviewScreen films={films} />} />
         <Route path={AppRoute.Player} element={<PlayerScreen films={films} />} />
         <Route path={AppRoute.NotFound} element={<NotFoundScreen />} />
