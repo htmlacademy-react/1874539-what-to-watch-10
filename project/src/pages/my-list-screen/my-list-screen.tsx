@@ -1,21 +1,22 @@
-import FilmCard from '../../components/film-card/film-card';
+import { Link } from 'react-router-dom';
+
+import FilmsList from '../../components/films-list/films-list';
 import Logo from '../../components/logo/logo';
 import PageFooter from '../../components/page-footer/page-footer';
 
-function MyListScreen(): JSX.Element {
-  const filmCards: JSX.Element[] = Array(9)
-    .fill(null)
-    .map((_, index) => {
-      const key = `sorry, but i have not unique id =( ${index}`;
-      return <FilmCard key={key} />;
-    });
+import { Film } from '../../types/film';
 
+type MyListScreenProps = {
+  films: Film[];
+};
+
+function MyListScreen({ films }: MyListScreenProps): JSX.Element {
   return (
     <div className='user-page'>
       <header className='page-header user-page__head'>
         <Logo />
         <h1 className='page-title user-page__title'>
-          My list <span className='user-page__film-count'>9</span>
+          My list <span className='user-page__film-count'>{films.length}</span>
         </h1>
         <ul className='user-block'>
           <li className='user-block__item'>
@@ -24,13 +25,15 @@ function MyListScreen(): JSX.Element {
             </div>
           </li>
           <li className='user-block__item'>
-            <a className='user-block__link'>Sign out</a>
+            <Link className='user-block__link' to='/login'>
+              Sign out
+            </Link>
           </li>
         </ul>
       </header>
       <section className='catalog'>
         <h2 className='catalog__title visually-hidden'>Catalog</h2>
-        <div className='catalog__films-list'>{filmCards}</div>
+        <FilmsList films={films} />
       </section>
       <PageFooter />
     </div>

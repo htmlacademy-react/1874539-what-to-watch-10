@@ -1,111 +1,74 @@
-import Logo from '../../components/logo/logo';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
-function AddReviewScreen(): JSX.Element {
-  return (
-    <section className='film-card film-card--full'>
-      <div className='film-card__header'>
-        <div className='film-card__bg'>
-          <img src='img/bg-the-grand-budapest-hotel.jpg' alt='The Grand Budapest Hotel' />
-        </div>
-        <h1 className='visually-hidden'>WTW</h1>
-        <header className='page-header'>
-          <Logo />
-          <nav className='breadcrumbs'>
-            <ul className='breadcrumbs__list'>
-              <li className='breadcrumbs__item'>
-                <a href='film-page.html' className='breadcrumbs__link'>
-                  The Grand Budapest Hotel
-                </a>
+import Logo from '../../components/logo/logo';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+
+import { Film } from '../../types/film';
+import AddReviewForm from '../../components/add-review-form/add-review-form';
+
+type AddReviewScreenProps = {
+  films: Film[];
+};
+
+function AddReviewScreen({ films }: AddReviewScreenProps): JSX.Element {
+  const params = useParams();
+  const location = useLocation();
+
+  const currenFilm = films.find((film) => film.id === params.id);
+
+  if (currenFilm) {
+    const {
+      id,
+      title,
+      images: { posterUrl },
+    } = currenFilm;
+
+    return (
+      <section className='film-card film-card--full'>
+        <div className='film-card__header'>
+          <div className='film-card__bg'>
+            <img src={posterUrl} alt={title} />
+          </div>
+          <h1 className='visually-hidden'>WTW</h1>
+          <header className='page-header'>
+            <Logo />
+            <nav className='breadcrumbs'>
+              <ul className='breadcrumbs__list'>
+                <li className='breadcrumbs__item'>
+                  <Link className='breadcrumbs__link' to={`/films/${id}`}>
+                    {title}
+                  </Link>
+                </li>
+                <li className='breadcrumbs__item'>
+                  <Link className='breadcrumbs__link' to={location.pathname}>
+                    Add review
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+            <ul className='user-block'>
+              <li className='user-block__item'>
+                <div className='user-block__avatar'>
+                  <img src='img/avatar.jpg' alt='User avatar' width={63} height={63} />
+                </div>
               </li>
-              <li className='breadcrumbs__item'>
-                <a className='breadcrumbs__link'>Add review</a>
+              <li className='user-block__item'>
+                <Link className='user-block__link' to='/login'>
+                  Sign out
+                </Link>
               </li>
             </ul>
-          </nav>
-          <ul className='user-block'>
-            <li className='user-block__item'>
-              <div className='user-block__avatar'>
-                <img src='img/avatar.jpg' alt='User avatar' width={63} height={63} />
-              </div>
-            </li>
-            <li className='user-block__item'>
-              <a className='user-block__link'>Sign out</a>
-            </li>
-          </ul>
-        </header>
-        <div className='film-card__poster film-card__poster--small'>
-          <img
-            src='img/the-grand-budapest-hotel-poster.jpg'
-            alt='The Grand Budapest Hotel poster'
-            width={218}
-            height={327}
-          />
+          </header>
+          <div className='film-card__poster film-card__poster--small'>
+            <img src={posterUrl} alt={title} width={218} height={327} />
+          </div>
         </div>
-      </div>
-      <div className='add-review'>
-        <form action='#' className='add-review__form'>
-          <div className='rating'>
-            <div className='rating__stars'>
-              <input className='rating__input' id='star-10' type='radio' name='rating' defaultValue={10} />
-              <label className='rating__label' htmlFor='star-10'>
-                Rating 10
-              </label>
-              <input className='rating__input' id='star-9' type='radio' name='rating' defaultValue={9} />
-              <label className='rating__label' htmlFor='star-9'>
-                Rating 9
-              </label>
-              <input className='rating__input' id='star-8' type='radio' name='rating' defaultValue={8} defaultChecked />
-              <label className='rating__label' htmlFor='star-8'>
-                Rating 8
-              </label>
-              <input className='rating__input' id='star-7' type='radio' name='rating' defaultValue={7} />
-              <label className='rating__label' htmlFor='star-7'>
-                Rating 7
-              </label>
-              <input className='rating__input' id='star-6' type='radio' name='rating' defaultValue={6} />
-              <label className='rating__label' htmlFor='star-6'>
-                Rating 6
-              </label>
-              <input className='rating__input' id='star-5' type='radio' name='rating' defaultValue={5} />
-              <label className='rating__label' htmlFor='star-5'>
-                Rating 5
-              </label>
-              <input className='rating__input' id='star-4' type='radio' name='rating' defaultValue={4} />
-              <label className='rating__label' htmlFor='star-4'>
-                Rating 4
-              </label>
-              <input className='rating__input' id='star-3' type='radio' name='rating' defaultValue={3} />
-              <label className='rating__label' htmlFor='star-3'>
-                Rating 3
-              </label>
-              <input className='rating__input' id='star-2' type='radio' name='rating' defaultValue={2} />
-              <label className='rating__label' htmlFor='star-2'>
-                Rating 2
-              </label>
-              <input className='rating__input' id='star-1' type='radio' name='rating' defaultValue={1} />
-              <label className='rating__label' htmlFor='star-1'>
-                Rating 1
-              </label>
-            </div>
-          </div>
-          <div className='add-review__text'>
-            <textarea
-              className='add-review__textarea'
-              name='review-text'
-              id='review-text'
-              placeholder='Review text'
-              defaultValue={''}
-            />
-            <div className='add-review__submit'>
-              <button className='add-review__btn' type='submit'>
-                Post
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </section>
-  );
+        <AddReviewForm />
+      </section>
+    );
+  }
+
+  return <NotFoundScreen />;
 }
 
 export default AddReviewScreen;
