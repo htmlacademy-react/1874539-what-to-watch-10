@@ -14,14 +14,14 @@ function AddReviewScreen({ films }: AddReviewScreenProps): JSX.Element {
   const params = useParams();
   const location = useLocation();
 
-  const currenFilm = films.find((film) => film.id === params.id);
+  const currentFilm = films.find((film) => film.id === params.id);
 
-  if (currenFilm) {
+  if (currentFilm) {
     const {
       id,
       title,
       images: { posterUrl },
-    } = currenFilm;
+    } = currentFilm;
 
     return (
       <section className='film-card film-card--full'>
