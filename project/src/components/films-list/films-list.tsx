@@ -9,9 +9,9 @@ type FilmsListProps = {
 };
 
 function FilmsList({ films }: FilmsListProps): JSX.Element | null {
-  const [activeFilmCardId, setActiveFilmCardId] = useState<string>('');
+  const [activeFilmCardId, setActiveFilmCardId] = useState<string | null>(null);
 
-  const makeFilmCardActive = (id: string) => {
+  const makeFilmCardActive = (id: string | null) => {
     setActiveFilmCardId(id);
   };
 

@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 
+import VideoPlayer from '../video-player/video-player';
+
 import { Film } from '../../types/film';
 
 type FilmCardProps = Film & {
-  makeFilmCardActive: (id: string) => void;
+  makeFilmCardActive: (id: string | null) => void;
   isActive: boolean;
 };
 
@@ -12,24 +14,31 @@ function FilmCard(props: FilmCardProps): JSX.Element {
     id,
     title,
     images: { posterUrl },
+    videos: { trailerUrl },
     makeFilmCardActive,
     isActive,
   } = props;
 
-  const handleOnMouseOver = () => {
+  const handleOnMouseOver = (): void => {
     makeFilmCardActive(id);
   };
 
-  const handleOnActive = () => isActive;
-
-  if (isActive) {
-    handleOnActive();
-  }
+  const handleOnMouseOut = (): void => {
+    makeFilmCardActive(null);
+  };
 
   return (
-    <article className='small-film-card catalog__films-card' onMouseOver={handleOnMouseOver}>
+    <article
+      className='small-film-card catalog__films-card'
+      onMouseOver={handleOnMouseOver}
+      onMouseOut={handleOnMouseOut}
+    >
       <div className='small-film-card__image'>
-        <img src={posterUrl} alt={title} width={280} height={175} />
+        {isActive ? (
+          <VideoPlayer videoSrc={trailerUrl} posterSrc={posterUrl} />
+        ) : (
+          <img src={posterUrl} alt={title} width={280} height={175} />
+        )}
       </div>
       <h3 className='small-film-card__title'>
         <Link className='small-film-card__link' to={`/films/${id}`}>
