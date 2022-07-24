@@ -9,28 +9,28 @@ type FilmsListProps = {
 };
 
 function FilmsList({ films }: FilmsListProps): JSX.Element | null {
-  const [activeFilmCardId, setActiveFilmCardId] = useState<string>('');
+  const [activeFilmCardId, setActiveFilmCardId] = useState<string | null>(null);
 
-  const makeFilmCardActive = (id: string) => {
+  const makeFilmCardActive = (id: string | null) => {
     setActiveFilmCardId(id);
   };
 
-  if (films.length) {
-    return (
-      <div className='catalog__films-list'>
-        {films.map((film) => (
-          <FilmCard
-            key={film.id}
-            makeFilmCardActive={makeFilmCardActive}
-            isActive={film.id === activeFilmCardId}
-            {...film}
-          />
-        ))}
-      </div>
-    );
+  if (!films.length) {
+    return null;
   }
 
-  return null;
+  return (
+    <div className='catalog__films-list'>
+      {films.map((film) => (
+        <FilmCard
+          key={film.id}
+          makeFilmCardActive={makeFilmCardActive}
+          isActive={film.id === activeFilmCardId}
+          {...film}
+        />
+      ))}
+    </div>
+  );
 }
 
 export default FilmsList;

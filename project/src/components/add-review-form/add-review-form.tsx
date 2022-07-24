@@ -26,24 +26,22 @@ function AddReviewForm(): JSX.Element {
       <form className='add-review__form' onSubmit={handleSubmitForm}>
         <div className='rating'>
           <div className='rating__stars'>
-            {Array(10)
-              .fill(null)
-              .map((_, index) => (
-                <Fragment key={uniqid('key-')}>
-                  <input
-                    className='rating__input'
-                    id={`star-${10 - index}`}
-                    type='radio'
-                    name='rating'
-                    value={10 - index}
-                    onChange={handleChangeRadio}
-                    checked={ratingScore === (10 - index).toString()}
-                  />
-                  <label className='rating__label' htmlFor={`star-${10 - index}`}>
-                    {`Rating ${10 - index}`}
-                  </label>
-                </Fragment>
-              ))}
+            {new Array(10).fill(null).map((_, index) => (
+              <Fragment key={uniqid('key-')}>
+                <input
+                  className='rating__input'
+                  id={`star-${10 - index}`}
+                  type='radio'
+                  name='rating'
+                  value={10 - index}
+                  onChange={handleChangeRadio}
+                  checked={ratingScore === (10 - index).toString()}
+                />
+                <label className='rating__label' htmlFor={`star-${10 - index}`}>
+                  {`Rating ${10 - index}`}
+                </label>
+              </Fragment>
+            ))}
           </div>
         </div>
         <div className='add-review__text'>
